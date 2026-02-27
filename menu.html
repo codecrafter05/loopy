@@ -1,0 +1,1182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Loopy — Donuts & Coffee Menu</title>
+
+  <!-- Fonts (optional). If you want 100% offline, remove this link. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Calm, premium, pastel + coffee-ish accents */
+      --bg: #fbfaf7;
+      --panel: rgba(255,255,255,.72);
+      --panel-strong: rgba(255,255,255,.92);
+      --text: #151415;
+      --muted: rgba(21,20,21,.66);
+      --muted-2: rgba(21,20,21,.42);
+
+      --mint: #79d6c6;
+      --mint-2: #4cc5b2;
+      --blush: #f3a7b6;
+      --blush-2:#ea7f96;
+
+      --coffee: #4b2a1f;
+      --caramel:#b77a52;
+
+      --stroke: rgba(21,20,21,.10);
+      --stroke-2: rgba(21,20,21,.16);
+
+      --shadow: 0 18px 60px rgba(0,0,0,.08);
+      --shadow-soft: 0 12px 40px rgba(0,0,0,.06);
+
+      --r-xl: 26px;
+      --r-lg: 20px;
+      --r-md: 16px;
+      --r-sm: 12px;
+
+      --max: 1120px;
+      --ease: cubic-bezier(.2,.9,.2,1);
+    }
+
+    * { box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 12% 8%, rgba(121,214,198,.35), transparent 55%),
+        radial-gradient(900px 560px at 88% 12%, rgba(243,167,182,.35), transparent 60%),
+        radial-gradient(1200px 600px at 50% 92%, rgba(183,122,82,.16), transparent 58%),
+        var(--bg);
+      letter-spacing: .1px;
+    }
+
+    /* Top “soft noise” effect (pure CSS) */
+    body::before{
+      content:"";
+      position: fixed;
+      inset:0;
+      pointer-events:none;
+      z-index: -1;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.015) 0 1px, transparent 1px 3px);
+      mix-blend-mode: multiply;
+      opacity:.30;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .wrap{ width:min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    /* Header — خلفية زجاجية، غير ستيك (يختفي مع السكرول) */
+    header{
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(251,250,247,.55);
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 14px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display: block;
+      min-width: 0;
+    }
+    .brandLogo{
+      display: block;
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .search{
+      flex: 1;
+      max-width: 520px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      background: var(--panel);
+      border: 1px solid rgba(21,20,21,.08);
+      border-radius: 999px;
+      padding: 10px 14px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.05);
+    }
+    .search svg{ flex: 0 0 auto; opacity:.75; }
+    .search input{
+      border:0;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: var(--panel);
+      border: 1px solid rgba(21,20,21,.08);
+      box-shadow: 0 12px 34px rgba(0,0,0,.05);
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .pill b{ color: var(--text); font-weight: 700; }
+
+    /* Hero */
+    .hero{
+      padding: 22px 0 16px;
+    }
+    .heroCard{
+      position: relative;
+      border-radius: var(--r-xl);
+      background:
+        radial-gradient(1200px 340px at 20% 20%, rgba(121,214,198,.20), transparent 62%),
+        radial-gradient(1200px 340px at 80% 30%, rgba(243,167,182,.20), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.50));
+      border: 1px solid rgba(21,20,21,.08);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .heroInner{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      padding: 22px;
+      align-items: center;
+    }
+    .hero h2{
+      margin:0 0 10px;
+      font-size: clamp(20px, 3.2vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.6px;
+    }
+    .hero p{
+      margin:0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 64ch;
+    }
+
+    .heroMeta{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+    }
+    .btn{
+      border: 0;
+      cursor:pointer;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #101010;
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.7), rgba(255,255,255,0) 62%),
+        linear-gradient(135deg, rgba(121,214,198,.95), rgba(243,167,182,.95));
+      box-shadow: 0 16px 44px rgba(0,0,0,.12);
+      border: 1px solid rgba(255,255,255,.65);
+      transition: transform .25s var(--ease), filter .25s var(--ease);
+    }
+    .btn:hover{ transform: translateY(-1px); filter: saturate(1.03); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+
+    .heroArt{
+      border-radius: var(--r-xl);
+      background:
+        radial-gradient(240px 240px at 28% 30%, rgba(243,167,182,.35), transparent 62%),
+        radial-gradient(240px 240px at 70% 54%, rgba(121,214,198,.35), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.7), rgba(255,255,255,.45));
+      border: 1px solid rgba(21,20,21,.08);
+      box-shadow: var(--shadow-soft);
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      position: relative;
+      overflow:hidden;
+      min-height: 190px;
+    }
+    .heroArt::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 42% 50%, rgba(255,255,255,.26), transparent 56%),
+        radial-gradient(circle at 68% 40%, rgba(255,255,255,.18), transparent 52%),
+        repeating-linear-gradient(45deg, rgba(0,0,0,.03) 0 2px, transparent 2px 8px);
+      transform: rotate(12deg);
+      opacity:.65;
+    }
+    .heroArtImg{
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid rgba(21,20,21,.08);
+      flex: 0 0 auto;
+      width: 100%;
+      max-height: 120px;
+      position: relative;
+      z-index: 1;
+    }
+    .heroArtImg img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .miniCard{
+      position: relative;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(21,20,21,.08);
+      border-radius: 18px;
+      padding: 12px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .miniCard b{ font-size: 12.5px; }
+    .miniCard span{
+      font-size: 12px;
+      color: var(--muted);
+      display:block;
+      margin-top: 2px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 12px;
+      border: 1px solid rgba(21,20,21,.08);
+      background: rgba(255,255,255,.8);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* Category strip — fixed، يلزمك فوق، ما يختفي أبداً */
+    .catStrip{
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 62px;
+      width: 100%;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(251,250,247,.55);
+      padding: 14px 0 16px;
+      transition: top .2s ease;
+    }
+    .catStripSpacer{
+      height: 56px;
+      flex-shrink: 0;
+    }
+    .catStrip .wrap{
+      overflow: hidden;
+    }
+    .cats{
+      display: flex;
+      gap: 10px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      padding: 4px 0 2px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .cats::-webkit-scrollbar{ display: none; }
+    .catBtn{
+      flex-shrink: 0;
+      white-space: nowrap;
+      border: 1px solid rgba(21,20,21,.10);
+      background: rgba(255,255,255,.66);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor:pointer;
+      transition: transform .22s var(--ease), background .22s var(--ease), color .22s var(--ease);
+    }
+    .catBtn:hover{ transform: translateY(-1px); }
+    .catBtn[aria-current="true"]{
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.72), rgba(255,255,255,0) 62%),
+        linear-gradient(135deg, rgba(121,214,198,.70), rgba(243,167,182,.70));
+      color: rgba(0,0,0,.88);
+      border-color: rgba(255,255,255,.70);
+      box-shadow: 0 16px 44px rgba(0,0,0,.10);
+    }
+
+    /* Sections + cards */
+    main{ padding: 18px 0 70px; }
+
+    section{
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sectionHead{
+      display:flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 8px 0 12px;
+    }
+    .sectionHead h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card{
+      border-radius: var(--r-lg);
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(21,20,21,.08);
+      box-shadow: 0 18px 60px rgba(0,0,0,.06);
+      overflow:hidden;
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 26px 70px rgba(0,0,0,.08);
+    }
+
+    .media{
+      aspect-ratio: 16/10;
+      cursor: pointer;
+      background:
+        radial-gradient(240px 240px at 30% 40%, rgba(243,167,182,.35), transparent 62%),
+        radial-gradient(240px 240px at 70% 60%, rgba(121,214,198,.35), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.55));
+      border-bottom: 1px solid rgba(21,20,21,.08);
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 14px;
+    }
+    .media img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.06);
+      filter: saturate(1.02) contrast(1.02);
+    }
+
+    .content{
+      padding: 14px 14px 14px;
+    }
+    .topline{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .name{
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: .1px;
+      margin:0;
+      line-height: 1.25;
+    }
+    .desc{
+      margin: 0 0 10px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      min-height: 38px;
+    }
+
+    .prices{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items:center;
+      justify-content: space-between;
+    }
+    .priceChips{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items:center;
+    }
+    .chip{
+      display:inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(21,20,21,.10);
+      color: rgba(0,0,0,.78);
+      white-space: nowrap;
+    }
+    .chip small{
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .ghostBtn{
+      border: 1px solid rgba(21,20,21,.10);
+      background: rgba(255,255,255,.66);
+      color: rgba(0,0,0,.78);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor:pointer;
+      transition: transform .22s var(--ease);
+    }
+    .ghostBtn:hover{ transform: translateY(-1px); }
+    .ghostBtn:active{ transform: translateY(0px) scale(.99); }
+
+    /* Modal */
+    .modalBack{
+      position: fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,.26);
+      backdrop-filter: blur(10px);
+      z-index: 200;
+    }
+    .modalBack[data-open="true"]{ display:flex; }
+    .modal{
+      width: min(720px, 100%);
+      border-radius: var(--r-xl);
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.75);
+      box-shadow: 0 40px 120px rgba(0,0,0,.18);
+      overflow:hidden;
+      transform: translateY(6px);
+      animation: pop .22s var(--ease) forwards;
+    }
+    @keyframes pop{
+      from{ opacity: 0; transform: translateY(10px) scale(.98); }
+      to{ opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(21,20,21,.08);
+      background:
+        radial-gradient(360px 140px at 20% 30%, rgba(121,214,198,.20), transparent 62%),
+        radial-gradient(360px 140px at 80% 30%, rgba(243,167,182,.20), transparent 62%),
+        rgba(255,255,255,.86);
+    }
+    .modalTop b{ font-size: 13px; }
+    .close{
+      border: 1px solid rgba(21,20,21,.12);
+      background: rgba(255,255,255,.78);
+      border-radius: 999px;
+      padding: 8px 10px;
+      cursor:pointer;
+      font-weight: 900;
+    }
+    .modalBody{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 16px;
+    }
+    .modalMedia{
+      border-radius: 20px;
+      overflow:hidden;
+      border: 1px solid rgba(21,20,21,.08);
+      background: #fff;
+      aspect-ratio: 4/3;
+    }
+    .modalMedia img{ width:100%; height:100%; object-fit: cover; }
+    .modalInfo h4{
+      margin:0 0 6px;
+      font-size: 18px;
+      letter-spacing: -0.3px;
+    }
+    .modalInfo p{
+      margin:0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .modalInfo .priceChips{ margin-top: 10px; }
+
+    /* Footer */
+    footer{
+      padding: 18px 0 34px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .footerCard{
+      border-radius: var(--r-xl);
+      border: 1px solid rgba(21,20,21,.08);
+      background: rgba(255,255,255,.60);
+      box-shadow: 0 18px 60px rgba(0,0,0,.05);
+      padding: 14px 16px;
+      display:flex;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .footerCard b{ color: rgba(0,0,0,.8); }
+    .dot{
+      width: 8px; height: 8px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--mint), var(--blush));
+      box-shadow: 0 10px 22px rgba(0,0,0,.12);
+      display:inline-block;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 980px){
+      .heroInner{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .modalBody{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px){
+      .topbar{ gap: 10px; }
+      .brand{ min-width: unset; }
+      .search{ display:none; }
+      .wrap{ width: min(var(--max), calc(100% - 24px)); }
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .heroInner{ padding: 16px; }
+      .heroArt{ min-height: 160px; }
+
+      /* البطاقة أصغر وارتفاع محدود في الهاتف */
+      section{ margin-top: 14px; padding-top: 4px; }
+      .sectionHead{ margin: 2px 0 6px; gap: 6px; }
+      .sectionHead h3{ font-size: 14px; }
+      .sectionHead p{ font-size: 11px; }
+      .card{
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+      }
+      .media{
+        aspect-ratio: 1;
+        padding: 6px;
+        flex-shrink: 0;
+      }
+      .media img{ border-radius: 10px; }
+      .content{
+        padding: 6px 8px 8px;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .topline{ margin-bottom: 2px; }
+      .name{ font-size: 11px; }
+      /* الوصف سطر واحد والباقي ... — الكامل يظهر في المودال عند الضغط */
+      .desc{
+        font-size: 10px;
+        line-height: 1.35;
+        margin: 0 0 4px;
+        min-height: 0;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .prices{ gap: 4px; }
+      .priceChips{ gap: 4px; }
+      .chip{ padding: 4px 6px; font-size: 10px; }
+      .chip small{ font-size: 9px; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; animation:none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <a href="#" class="brand" aria-label="Loopy">
+          <img src="logo2.png" alt="Loopy" class="brandLogo" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="catStripSpacer" id="catStripSpacer" aria-hidden="true"></div>
+
+  <nav class="catStrip" id="catStrip" aria-label="Menu categories">
+    <div class="wrap">
+      <div class="cats" role="tablist">
+        <button class="catBtn" data-cat="featured" aria-current="true" role="tab">Featured</button>
+        <button class="catBtn" data-cat="donuts" role="tab">Donuts</button>
+        <button class="catBtn" data-cat="signature" role="tab">Signature Donuts</button>
+        <button class="catBtn" data-cat="hot" role="tab">Hot Coffee</button>
+        <button class="catBtn" data-cat="iced" role="tab">Iced Coffee</button>
+        <button class="catBtn" data-cat="noncoffee" role="tab">Non-Coffee</button>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <main class="wrap" id="menuRoot" aria-label="Menu">
+
+    <section id="sec-featured" class="menuSection">
+      <div class="sectionHead">
+        <div>
+          <h3>Featured</h3>
+        </div>
+        <p>3 items</p>
+      </div>
+      <div class="grid">
+        <article class="card" data-cat="Featured" data-name="Pistachio Rose" data-desc="Soft glaze, crushed pistachio, a subtle floral finish." data-img="image.png" data-prices='[{"label":"1 pc","value":"1.200"}]'>
+          <div class="media">
+            <img src="image.png" alt="Pistachio Rose" loading="lazy" />
+          </div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Pistachio Rose</h4></div>
+            <p class="desc">Soft glaze, crushed pistachio, a subtle floral finish.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>1 pc</small> 1.200</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Featured" data-name="Iced Spanish Latte" data-desc="Bold espresso, silky milk, gentle sweetness." data-img="image1.png" data-prices='[{"label":"12oz","value":"2.100"},{"label":"16oz","value":"2.400"}]'>
+          <div class="media">
+            <img src="image1.png" alt="Iced Spanish Latte" loading="lazy" />
+          </div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Iced Spanish Latte</h4></div>
+            <p class="desc">Bold espresso, silky milk, gentle sweetness.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>12oz</small> 2.100</span>
+                <span class="chip"><small>16oz</small> 2.400</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Featured" data-name="Classic Cinnamon" data-desc="Warm cinnamon sugar, light vanilla crumb." data-img="image2.png" data-prices='[{"label":"1 pc","value":"0.950"}]'>
+          <div class="media">
+            <img src="image2.png" alt="Classic Cinnamon" loading="lazy" />
+          </div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Classic Cinnamon</h4></div>
+            <p class="desc">Warm cinnamon sugar, light vanilla crumb.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>1 pc</small> 0.950</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sec-donuts" class="menuSection">
+      <div class="sectionHead">
+        <div>
+          <h3>Donuts</h3>
+        </div>
+        <p>6 items</p>
+      </div>
+      <div class="grid">
+        <article class="card" data-cat="Donuts" data-name="Sugar Cloud" data-desc="Powdered sugar finish — airy and light." data-img="image.png" data-prices='[{"label":"1 pc","value":"0.900"}]'>
+          <div class="media"><img src="image.png" alt="Sugar Cloud" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Sugar Cloud</h4></div>
+            <p class="desc">Powdered sugar finish — airy and light.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 0.900</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Donuts" data-name="Chocolate Glaze" data-desc="Deep cocoa glaze with a clean bite." data-img="image1.png" data-prices='[{"label":"1 pc","value":"1.000"}]'>
+          <div class="media"><img src="image1.png" alt="Chocolate Glaze" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Chocolate Glaze</h4></div>
+            <p class="desc">Deep cocoa glaze with a clean bite.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.000</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Donuts" data-name="Vanilla Sprinkle" data-desc="Vanilla glaze + pastel sprinkles." data-img="image2.png" data-prices='[{"label":"1 pc","value":"1.050"}]'>
+          <div class="media"><img src="image2.png" alt="Vanilla Sprinkle" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Vanilla Sprinkle</h4></div>
+            <p class="desc">Vanilla glaze + pastel sprinkles.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.050</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Donuts" data-name="Caramel Sea Salt" data-desc="Caramel glaze with a gentle salty pop." data-img="image.png" data-prices='[{"label":"1 pc","value":"1.150"}]'>
+          <div class="media"><img src="image.png" alt="Caramel Sea Salt" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Caramel Sea Salt</h4></div>
+            <p class="desc">Caramel glaze with a gentle salty pop.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.150</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Donuts" data-name="Strawberry Milk" data-desc="Creamy strawberry glaze, soft &amp; sweet." data-img="image1.png" data-prices='[{"label":"1 pc","value":"1.100"}]'>
+          <div class="media"><img src="image1.png" alt="Strawberry Milk" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Strawberry Milk</h4></div>
+            <p class="desc">Creamy strawberry glaze, soft &amp; sweet.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.100</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Donuts" data-name="Espresso Dust" data-desc="Espresso sugar, cocoa, and calm bitterness." data-img="image2.png" data-prices='[{"label":"1 pc","value":"1.150"}]'>
+          <div class="media"><img src="image2.png" alt="Espresso Dust" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Espresso Dust</h4></div>
+            <p class="desc">Espresso sugar, cocoa, and calm bitterness.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.150</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sec-signature" class="menuSection">
+      <div class="sectionHead">
+        <div>
+          <h3>Signature Donuts</h3>
+        </div>
+        <p>6 items</p>
+      </div>
+      <div class="grid">
+        <article class="card" data-cat="Signature Donuts" data-name="Lotus Crunch" data-desc="Biscoff glaze, cookie crumble, caramel warmth." data-img="image.png" data-prices='[{"label":"1 pc","value":"1.300"}]'>
+          <div class="media"><img src="image.png" alt="Lotus Crunch" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Lotus Crunch</h4></div>
+            <p class="desc">Biscoff glaze, cookie crumble, caramel warmth.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.300</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Signature Donuts" data-name="Matcha White" data-desc="Matcha glaze with white chocolate drizzle." data-img="image1.png" data-prices='[{"label":"1 pc","value":"1.350"}]'>
+          <div class="media"><img src="image1.png" alt="Matcha White" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Matcha White</h4></div>
+            <p class="desc">Matcha glaze with white chocolate drizzle.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.350</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Signature Donuts" data-name="Cookies &amp; Cream" data-desc="Oreo crumble, vanilla glaze, clean finish." data-img="image2.png" data-prices='[{"label":"1 pc","value":"1.350"}]'>
+          <div class="media"><img src="image2.png" alt="Cookies &amp; Cream" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Cookies &amp; Cream</h4></div>
+            <p class="desc">Oreo crumble, vanilla glaze, clean finish.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.350</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Signature Donuts" data-name="Pistachio Cream" data-desc="Pistachio filling, soft glaze, crunchy top." data-img="image.png" data-prices='[{"label":"1 pc","value":"1.450"}]'>
+          <div class="media"><img src="image.png" alt="Pistachio Cream" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Pistachio Cream</h4></div>
+            <p class="desc">Pistachio filling, soft glaze, crunchy top.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.450</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Signature Donuts" data-name="Raspberry Jam" data-desc="Jam-filled, bright berry note, soft dough." data-img="image1.png" data-prices='[{"label":"1 pc","value":"1.350"}]'>
+          <div class="media"><img src="image1.png" alt="Raspberry Jam" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Raspberry Jam</h4></div>
+            <p class="desc">Jam-filled, bright berry note, soft dough.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.350</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Signature Donuts" data-name="Triple Chocolate" data-desc="Chocolate glaze + drizzle + cocoa dust." data-img="image2.png" data-prices='[{"label":"1 pc","value":"1.450"}]'>
+          <div class="media"><img src="image2.png" alt="Triple Chocolate" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Triple Chocolate</h4></div>
+            <p class="desc">Chocolate glaze + drizzle + cocoa dust.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>1 pc</small> 1.450</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sec-hot" class="menuSection">
+      <div class="sectionHead">
+        <div>
+          <h3>Hot Coffee</h3>
+        </div>
+        <p>6 items</p>
+      </div>
+      <div class="grid">
+        <article class="card" data-cat="Hot Coffee" data-name="Americano" data-desc="Clean espresso with hot water — crisp and simple." data-img="image.png" data-prices='[{"label":"8oz","value":"1.200"},{"label":"12oz","value":"1.500"}]'>
+          <div class="media"><img src="image.png" alt="Americano" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Americano</h4></div>
+            <p class="desc">Clean espresso with hot water — crisp and simple.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>8oz</small> 1.200</span>
+                <span class="chip"><small>12oz</small> 1.500</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Hot Coffee" data-name="Latte" data-desc="Silky steamed milk with balanced espresso." data-img="image1.png" data-prices='[{"label":"8oz","value":"1.700"},{"label":"12oz","value":"1.900"}]'>
+          <div class="media"><img src="image1.png" alt="Latte" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Latte</h4></div>
+            <p class="desc">Silky steamed milk with balanced espresso.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>8oz</small> 1.700</span>
+                <span class="chip"><small>12oz</small> 1.900</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Hot Coffee" data-name="Cappuccino" data-desc="Foamy, aromatic, and classic." data-img="image2.png" data-prices='[{"label":"8oz","value":"1.700"}]'>
+          <div class="media"><img src="image2.png" alt="Cappuccino" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Cappuccino</h4></div>
+            <p class="desc">Foamy, aromatic, and classic.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>8oz</small> 1.700</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Hot Coffee" data-name="Mocha" data-desc="Cocoa + espresso + milk. Soft sweetness." data-img="image.png" data-prices='[{"label":"8oz","value":"1.900"},{"label":"12oz","value":"2.200"}]'>
+          <div class="media"><img src="image.png" alt="Mocha" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Mocha</h4></div>
+            <p class="desc">Cocoa + espresso + milk. Soft sweetness.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>8oz</small> 1.900</span>
+                <span class="chip"><small>12oz</small> 2.200</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Hot Coffee" data-name="Flat White" data-desc="Velvety micro-foam, stronger espresso profile." data-img="image1.png" data-prices='[{"label":"8oz","value":"1.900"}]'>
+          <div class="media"><img src="image1.png" alt="Flat White" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Flat White</h4></div>
+            <p class="desc">Velvety micro-foam, stronger espresso profile.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>8oz</small> 1.900</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Hot Coffee" data-name="Hot Chocolate" data-desc="Creamy cocoa. Comfort in a cup." data-img="image2.png" data-prices='[{"label":"12oz","value":"2.000"}]'>
+          <div class="media"><img src="image2.png" alt="Hot Chocolate" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Hot Chocolate</h4></div>
+            <p class="desc">Creamy cocoa. Comfort in a cup.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>12oz</small> 2.000</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sec-iced" class="menuSection">
+      <div class="sectionHead">
+        <div>
+          <h3>Iced Coffee</h3>
+        </div>
+        <p>6 items</p>
+      </div>
+      <div class="grid">
+        <article class="card" data-cat="Iced Coffee" data-name="Iced Latte" data-desc="Chilled milk + espresso — clean and soft." data-img="image.png" data-prices='[{"label":"12oz","value":"2.000"},{"label":"16oz","value":"2.300"}]'>
+          <div class="media"><img src="image.png" alt="Iced Latte" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Iced Latte</h4></div>
+            <p class="desc">Chilled milk + espresso — clean and soft.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>12oz</small> 2.000</span>
+                <span class="chip"><small>16oz</small> 2.300</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Iced Coffee" data-name="Iced Americano" data-desc="Sharp espresso, light and crisp over ice." data-img="image1.png" data-prices='[{"label":"12oz","value":"1.700"},{"label":"16oz","value":"2.000"}]'>
+          <div class="media"><img src="image1.png" alt="Iced Americano" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Iced Americano</h4></div>
+            <p class="desc">Sharp espresso, light and crisp over ice.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>12oz</small> 1.700</span>
+                <span class="chip"><small>16oz</small> 2.000</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Iced Coffee" data-name="Iced Mocha" data-desc="Cocoa + espresso. Smooth sweetness." data-img="image2.png" data-prices='[{"label":"12oz","value":"2.300"},{"label":"16oz","value":"2.600"}]'>
+          <div class="media"><img src="image2.png" alt="Iced Mocha" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Iced Mocha</h4></div>
+            <p class="desc">Cocoa + espresso. Smooth sweetness.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>12oz</small> 2.300</span>
+                <span class="chip"><small>16oz</small> 2.600</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Iced Coffee" data-name="Cold Brew" data-desc="Slow-brewed for low acidity and extra smoothness." data-img="image.png" data-prices='[{"label":"12oz","value":"2.200"},{"label":"16oz","value":"2.600"}]'>
+          <div class="media"><img src="image.png" alt="Cold Brew" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Cold Brew</h4></div>
+            <p class="desc">Slow-brewed for low acidity and extra smoothness.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>12oz</small> 2.200</span>
+                <span class="chip"><small>16oz</small> 2.600</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Iced Coffee" data-name="Iced Matcha Latte" data-desc="Matcha, milk, and a calm earthy finish." data-img="image1.png" data-prices='[{"label":"12oz","value":"2.400"},{"label":"16oz","value":"2.800"}]'>
+          <div class="media"><img src="image1.png" alt="Iced Matcha Latte" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Iced Matcha Latte</h4></div>
+            <p class="desc">Matcha, milk, and a calm earthy finish.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>12oz</small> 2.400</span>
+                <span class="chip"><small>16oz</small> 2.800</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Iced Coffee" data-name="Affogato (Mini)" data-desc="Espresso shot over vanilla gelato." data-img="image2.png" data-prices='[{"label":"Single","value":"2.200"}]'>
+          <div class="media"><img src="image2.png" alt="Affogato (Mini)" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Affogato (Mini)</h4></div>
+            <p class="desc">Espresso shot over vanilla gelato.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>Single</small> 2.200</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sec-noncoffee" class="menuSection">
+      <div class="sectionHead">
+        <div>
+          <h3>Non-Coffee</h3>
+        </div>
+        <p>6 items</p>
+      </div>
+      <div class="grid">
+        <article class="card" data-cat="Non-Coffee" data-name="Strawberry Milk" data-desc="Creamy strawberry — nostalgic and soft." data-img="image.png" data-prices='[{"label":"12oz","value":"1.900"},{"label":"16oz","value":"2.200"}]'>
+          <div class="media"><img src="image.png" alt="Strawberry Milk" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Strawberry Milk</h4></div>
+            <p class="desc">Creamy strawberry — nostalgic and soft.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>12oz</small> 1.900</span>
+                <span class="chip"><small>16oz</small> 2.200</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Non-Coffee" data-name="Iced Chocolate" data-desc="Cold cocoa, creamy texture, not too sweet." data-img="image1.png" data-prices='[{"label":"12oz","value":"2.100"},{"label":"16oz","value":"2.400"}]'>
+          <div class="media"><img src="image1.png" alt="Iced Chocolate" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Iced Chocolate</h4></div>
+            <p class="desc">Cold cocoa, creamy texture, not too sweet.</p>
+            <div class="prices">
+              <div class="priceChips">
+                <span class="chip"><small>12oz</small> 2.100</span>
+                <span class="chip"><small>16oz</small> 2.400</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-cat="Non-Coffee" data-name="Vanilla Shake" data-desc="Thick, smooth, and classic." data-img="image2.png" data-prices='[{"label":"16oz","value":"2.700"}]'>
+          <div class="media"><img src="image2.png" alt="Vanilla Shake" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Vanilla Shake</h4></div>
+            <p class="desc">Thick, smooth, and classic.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>16oz</small> 2.700</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Non-Coffee" data-name="Caramel Shake" data-desc="Caramel warmth, soft finish." data-img="image.png" data-prices='[{"label":"16oz","value":"2.900"}]'>
+          <div class="media"><img src="image.png" alt="Caramel Shake" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Caramel Shake</h4></div>
+            <p class="desc">Caramel warmth, soft finish.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>16oz</small> 2.900</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Non-Coffee" data-name="Peach Iced Tea" data-desc="Light peach notes, refreshing and clean." data-img="image1.png" data-prices='[{"label":"16oz","value":"1.900"}]'>
+          <div class="media"><img src="image1.png" alt="Peach Iced Tea" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Peach Iced Tea</h4></div>
+            <p class="desc">Light peach notes, refreshing and clean.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>16oz</small> 1.900</span></div></div>
+          </div>
+        </article>
+        <article class="card" data-cat="Non-Coffee" data-name="Sparkling Lemon" data-desc="Citrus sparkle — crisp &amp; bright." data-img="image2.png" data-prices='[{"label":"16oz","value":"1.800"}]'>
+          <div class="media"><img src="image2.png" alt="Sparkling Lemon" loading="lazy" /></div>
+          <div class="content">
+            <div class="topline"><h4 class="name">Sparkling Lemon</h4></div>
+            <p class="desc">Citrus sparkle — crisp &amp; bright.</p>
+            <div class="prices"><div class="priceChips"><span class="chip"><small>16oz</small> 1.800</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true" aria-label="Item details" data-open="false">
+    <div class="modal" role="document">
+      <div class="modalTop">
+        <b id="modalCat">Category</b>
+        <button class="close" id="closeModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="modalMedia">
+          <img id="modalImg" alt="" />
+        </div>
+        <div class="modalInfo">
+          <h4 id="modalTitle">Item</h4>
+          <p id="modalDesc">Description</p>
+          <div class="priceChips" id="modalPrices"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var header = document.querySelector("header");
+      var catStrip = document.getElementById("catStrip");
+      var spacer = document.getElementById("catStripSpacer");
+      function updateStrip(){
+        if(!header || !catStrip || !spacer) return;
+        spacer.style.height = catStrip.offsetHeight + "px";
+        catStrip.style.top = (window.scrollY > header.offsetHeight ? 0 : header.offsetHeight) + "px";
+      }
+      updateStrip();
+      window.addEventListener("scroll", updateStrip, { passive: true });
+      window.addEventListener("resize", updateStrip);
+
+      /* عند السكرول: تحديث البار حسب الكاتوقري الظاهر + تحريك البار يمين/يسار لعرض الزر النشط */
+      var sections = document.querySelectorAll(".menuSection");
+      var catBtns = document.querySelectorAll(".catBtn");
+      var catsEl = document.querySelector(".cats");
+      function updateCatFromScroll(){
+        if(!sections.length || !catBtns.length) return;
+        var y = 180;
+        var current = null;
+        for(var i = 0; i < sections.length; i++){
+          var t = sections[i].getBoundingClientRect().top;
+          if(t <= y && (current === null || t > current.getBoundingClientRect().top)) current = sections[i];
+        }
+        if(!current) current = sections[0];
+        var catId = current.id ? current.id.replace("sec-","") : "featured";
+        var activeBtn = null;
+        catBtns.forEach(function(b){
+          var isActive = b.dataset.cat === catId;
+          b.setAttribute("aria-current", isActive ? "true" : "false");
+          if(isActive) activeBtn = b;
+        });
+        if(activeBtn && catsEl) activeBtn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+      }
+      window.addEventListener("scroll", updateCatFromScroll, { passive: true });
+      window.addEventListener("resize", updateCatFromScroll);
+      updateCatFromScroll();
+
+      var root = document.getElementById("menuRoot");
+      var searchInput = document.getElementById("searchInput");
+      if(searchInput) searchInput.addEventListener("input", function(){
+        var q = this.value.trim().toLowerCase();
+        root.querySelectorAll(".card").forEach(function(c){
+          var sec = c.closest(".menuSection");
+          var text = (c.dataset.name + " " + c.dataset.desc + " " + (sec ? sec.querySelector("h3").textContent : "")).toLowerCase();
+          c.style.display = q && text.indexOf(q) === -1 ? "none" : "";
+        });
+        root.querySelectorAll(".menuSection").forEach(function(s){
+          s.style.display = s.querySelector(".card:not([style*='none'])") ? "" : "none";
+        });
+      });
+
+      document.querySelectorAll(".catBtn").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          document.querySelectorAll(".catBtn").forEach(function(b){ b.setAttribute("aria-current", b === btn ? "true" : "false"); });
+          if(catsEl) btn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+          if(searchInput) searchInput.value = "";
+          root.querySelectorAll(".menuSection, .card").forEach(function(el){ el.style.display = ""; });
+          var t = document.getElementById("sec-" + btn.dataset.cat);
+          if(t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      root.addEventListener("click", function(e){
+        var media = e.target.closest(".media");
+        if(!media) return;
+        var card = media.closest(".card");
+        if(!card) return;
+        var prices = JSON.parse(card.dataset.prices || "[]");
+        document.getElementById("modalCat").textContent = card.dataset.cat;
+        document.getElementById("modalImg").src = card.dataset.img;
+        document.getElementById("modalImg").alt = card.dataset.name;
+        document.getElementById("modalTitle").textContent = card.dataset.name;
+        document.getElementById("modalDesc").textContent = card.dataset.desc;
+        document.getElementById("modalPrices").innerHTML = prices.map(function(p){ return "<span class=\"chip\"><small>" + p.label + "</small> " + p.value + "</span>"; }).join("");
+        document.getElementById("modalBack").setAttribute("data-open", "true");
+        document.body.style.overflow = "hidden";
+      });
+
+      function closeModal(){
+        document.getElementById("modalBack").setAttribute("data-open", "false");
+        document.body.style.overflow = "";
+      }
+      document.getElementById("closeModal").addEventListener("click", closeModal);
+      document.getElementById("modalBack").addEventListener("click", function(e){ if(e.target === this) closeModal(); });
+      window.addEventListener("keydown", function(e){ if(e.key === "Escape") closeModal(); });
+
+      var scrollFeatured = document.getElementById("scrollFeatured");
+      if(scrollFeatured) scrollFeatured.addEventListener("click", function(){
+        document.querySelectorAll(".catBtn").forEach(function(b){ b.setAttribute("aria-current", b.dataset.cat === "featured" ? "true" : "false"); });
+        var t = document.getElementById("sec-featured");
+        if(t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    })();
+  </script>
+</body>
+</html>
