@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Loopy — Donuts & Coffee Menu</title>
-  <link rel="icon" href="favicon.png" type="image/x-icon">
+  <link rel="icon" href="{{ asset('assets/imgs/favicon.png') }}" type="image/x-icon">
   <!-- Fonts (optional). If you want 100% offline, remove this link. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 </head>
 
@@ -19,7 +19,7 @@
     <div class="wrap">
       <div class="topbar">
         <a href="#" class="brand" aria-label="Loopy">
-          <img src="logo3.png" alt="Loopy" class="brandLogo" />
+          <img src="{{ asset('assets/imgs/logo3.png') }}" alt="Loopy" class="brandLogo" />
         </a>
       </div>
     </div>
@@ -54,7 +54,7 @@
       <div class="grid">
         <article class="card" data-cat="Featured" data-name="Pistachio Rose" data-desc="Soft glaze, crushed pistachio, a subtle floral finish." data-img="image.png" data-prices='[{"label":"1 pc","value":"1.200"}]'>
           <div class="media">
-            <img src="image.png" alt="Pistachio Rose" loading="lazy" />
+            <img src="{{ asset('assets/imgs/image.png') }}" alt="Pistachio Rose" loading="lazy" />
           </div>
           <div class="content">
             <div class="topline"><h4 class="name">Pistachio Rose</h4></div>
@@ -68,7 +68,7 @@
         </article>
         <article class="card" data-cat="Featured" data-name="Iced Spanish Latte" data-desc="Bold espresso, silky milk, gentle sweetness." data-img="image1.png" data-prices='[{"label":"12oz","value":"2.100"},{"label":"16oz","value":"2.400"}]'>
           <div class="media">
-            <img src="image1.png" alt="Iced Spanish Latte" loading="lazy" />
+            <img src="{{ asset('assets/imgs/image1.png') }}" alt="Iced Spanish Latte" loading="lazy" />
           </div>
           <div class="content">
             <div class="topline"><h4 class="name">Iced Spanish Latte</h4></div>
@@ -83,7 +83,7 @@
         </article>
         <article class="card" data-cat="Featured" data-name="Classic Cinnamon" data-desc="Warm cinnamon sugar, light vanilla crumb." data-img="image2.png" data-prices='[{"label":"1 pc","value":"0.950"}]'>
           <div class="media">
-            <img src="image2.png" alt="Classic Cinnamon" loading="lazy" />
+            <img src="{{ asset('assets/imgs/image2.png') }}" alt="Classic Cinnamon" loading="lazy" />
           </div>
           <div class="content">
             <div class="topline"><h4 class="name">Classic Cinnamon</h4></div>
@@ -97,7 +97,7 @@
         </article>
         <article class="card" data-cat="Featured" data-name="Classic Cinnamon" data-desc="Warm cinnamon sugar, light vanilla crumb." data-img="image2.png" data-prices='[{"label":"1 pc","value":"0.950"}]'>
           <div class="media">
-            <img src="image2.png" alt="Classic Cinnamon" loading="lazy" />
+            <img src="{{ asset('assets/imgs/image2.png') }}" alt="Classic Cinnamon" loading="lazy" />
           </div>
           <div class="content">
             <div class="topline"><h4 class="name">Classic Cinnamon</h4></div>
@@ -121,7 +121,7 @@
       </div>
       <div class="grid">
         <article class="card" data-cat="Donuts" data-name="Sugar Cloud" data-desc="Powdered sugar finish — airy and light." data-img="image.png" data-prices='[{"label":"1 pc","value":"0.900"}]'>
-          <div class="media"><img src="image.png" alt="Sugar Cloud" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Sugar Cloud" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Sugar Cloud</h4></div>
             <p class="desc">Powdered sugar finish — airy and light.</p>
@@ -129,7 +129,7 @@
           </div>
         </article>
         <article class="card" data-cat="Donuts" data-name="Chocolate Glaze" data-desc="Deep cocoa glaze with a clean bite." data-img="image1.png" data-prices='[{"label":"1 pc","value":"1.000"}]'>
-          <div class="media"><img src="image1.png" alt="Chocolate Glaze" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Chocolate Glaze" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Chocolate Glaze</h4></div>
             <p class="desc">Deep cocoa glaze with a clean bite.</p>
@@ -137,7 +137,7 @@
           </div>
         </article>
         <article class="card" data-cat="Donuts" data-name="Vanilla Sprinkle" data-desc="Vanilla glaze + pastel sprinkles." data-img="image2.png" data-prices='[{"label":"1 pc","value":"1.050"}]'>
-          <div class="media"><img src="image2.png" alt="Vanilla Sprinkle" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Vanilla Sprinkle" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Vanilla Sprinkle</h4></div>
             <p class="desc">Vanilla glaze + pastel sprinkles.</p>
@@ -145,7 +145,7 @@
           </div>
         </article>
         <article class="card" data-cat="Donuts" data-name="Caramel Sea Salt" data-desc="Caramel glaze with a gentle salty pop." data-img="image.png" data-prices='[{"label":"1 pc","value":"1.150"}]'>
-          <div class="media"><img src="image.png" alt="Caramel Sea Salt" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Caramel Sea Salt" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Caramel Sea Salt</h4></div>
             <p class="desc">Caramel glaze with a gentle salty pop.</p>
@@ -153,7 +153,7 @@
           </div>
         </article>
         <article class="card" data-cat="Donuts" data-name="Strawberry Milk" data-desc="Creamy strawberry glaze, soft &amp; sweet." data-img="image1.png" data-prices='[{"label":"1 pc","value":"1.100"}]'>
-          <div class="media"><img src="image1.png" alt="Strawberry Milk" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Strawberry Milk" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Strawberry Milk</h4></div>
             <p class="desc">Creamy strawberry glaze, soft &amp; sweet.</p>
@@ -161,7 +161,7 @@
           </div>
         </article>
         <article class="card" data-cat="Donuts" data-name="Espresso Dust" data-desc="Espresso sugar, cocoa, and calm bitterness." data-img="image2.png" data-prices='[{"label":"1 pc","value":"1.150"}]'>
-          <div class="media"><img src="image2.png" alt="Espresso Dust" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Espresso Dust" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Espresso Dust</h4></div>
             <p class="desc">Espresso sugar, cocoa, and calm bitterness.</p>
@@ -180,7 +180,7 @@
       </div>
       <div class="grid">
         <article class="card" data-cat="Signature Donuts" data-name="Lotus Crunch" data-desc="Biscoff glaze, cookie crumble, caramel warmth." data-img="image.png" data-prices='[{"label":"1 pc","value":"1.300"}]'>
-          <div class="media"><img src="image.png" alt="Lotus Crunch" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Lotus Crunch" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Lotus Crunch</h4></div>
             <p class="desc">Biscoff glaze, cookie crumble, caramel warmth.</p>
@@ -188,7 +188,7 @@
           </div>
         </article>
         <article class="card" data-cat="Signature Donuts" data-name="Matcha White" data-desc="Matcha glaze with white chocolate drizzle." data-img="image1.png" data-prices='[{"label":"1 pc","value":"1.350"}]'>
-          <div class="media"><img src="image1.png" alt="Matcha White" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Matcha White" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Matcha White</h4></div>
             <p class="desc">Matcha glaze with white chocolate drizzle.</p>
@@ -196,7 +196,7 @@
           </div>
         </article>
         <article class="card" data-cat="Signature Donuts" data-name="Cookies &amp; Cream" data-desc="Oreo crumble, vanilla glaze, clean finish." data-img="image2.png" data-prices='[{"label":"1 pc","value":"1.350"}]'>
-          <div class="media"><img src="image2.png" alt="Cookies &amp; Cream" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Cookies &amp; Cream" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Cookies &amp; Cream</h4></div>
             <p class="desc">Oreo crumble, vanilla glaze, clean finish.</p>
@@ -204,7 +204,7 @@
           </div>
         </article>
         <article class="card" data-cat="Signature Donuts" data-name="Pistachio Cream" data-desc="Pistachio filling, soft glaze, crunchy top." data-img="image.png" data-prices='[{"label":"1 pc","value":"1.450"}]'>
-          <div class="media"><img src="image.png" alt="Pistachio Cream" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Pistachio Cream" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Pistachio Cream</h4></div>
             <p class="desc">Pistachio filling, soft glaze, crunchy top.</p>
@@ -212,7 +212,7 @@
           </div>
         </article>
         <article class="card" data-cat="Signature Donuts" data-name="Raspberry Jam" data-desc="Jam-filled, bright berry note, soft dough." data-img="image1.png" data-prices='[{"label":"1 pc","value":"1.350"}]'>
-          <div class="media"><img src="image1.png" alt="Raspberry Jam" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Raspberry Jam" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Raspberry Jam</h4></div>
             <p class="desc">Jam-filled, bright berry note, soft dough.</p>
@@ -220,7 +220,7 @@
           </div>
         </article>
         <article class="card" data-cat="Signature Donuts" data-name="Triple Chocolate" data-desc="Chocolate glaze + drizzle + cocoa dust." data-img="image2.png" data-prices='[{"label":"1 pc","value":"1.450"}]'>
-          <div class="media"><img src="image2.png" alt="Triple Chocolate" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Triple Chocolate" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Triple Chocolate</h4></div>
             <p class="desc">Chocolate glaze + drizzle + cocoa dust.</p>
@@ -239,7 +239,7 @@
       </div>
       <div class="grid">
         <article class="card" data-cat="Hot Coffee" data-name="Americano" data-desc="Clean espresso with hot water — crisp and simple." data-img="image.png" data-prices='[{"label":"8oz","value":"1.200"},{"label":"12oz","value":"1.500"}]'>
-          <div class="media"><img src="image.png" alt="Americano" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Americano" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Americano</h4></div>
             <p class="desc">Clean espresso with hot water — crisp and simple.</p>
@@ -252,7 +252,7 @@
           </div>
         </article>
         <article class="card" data-cat="Hot Coffee" data-name="Latte" data-desc="Silky steamed milk with balanced espresso." data-img="image1.png" data-prices='[{"label":"8oz","value":"1.700"},{"label":"12oz","value":"1.900"}]'>
-          <div class="media"><img src="image1.png" alt="Latte" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Latte" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Latte</h4></div>
             <p class="desc">Silky steamed milk with balanced espresso.</p>
@@ -265,7 +265,7 @@
           </div>
         </article>
         <article class="card" data-cat="Hot Coffee" data-name="Cappuccino" data-desc="Foamy, aromatic, and classic." data-img="image2.png" data-prices='[{"label":"8oz","value":"1.700"}]'>
-          <div class="media"><img src="image2.png" alt="Cappuccino" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Cappuccino" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Cappuccino</h4></div>
             <p class="desc">Foamy, aromatic, and classic.</p>
@@ -273,7 +273,7 @@
           </div>
         </article>
         <article class="card" data-cat="Hot Coffee" data-name="Mocha" data-desc="Cocoa + espresso + milk. Soft sweetness." data-img="image.png" data-prices='[{"label":"8oz","value":"1.900"},{"label":"12oz","value":"2.200"}]'>
-          <div class="media"><img src="image.png" alt="Mocha" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Mocha" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Mocha</h4></div>
             <p class="desc">Cocoa + espresso + milk. Soft sweetness.</p>
@@ -286,7 +286,7 @@
           </div>
         </article>
         <article class="card" data-cat="Hot Coffee" data-name="Flat White" data-desc="Velvety micro-foam, stronger espresso profile." data-img="image1.png" data-prices='[{"label":"8oz","value":"1.900"}]'>
-          <div class="media"><img src="image1.png" alt="Flat White" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Flat White" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Flat White</h4></div>
             <p class="desc">Velvety micro-foam, stronger espresso profile.</p>
@@ -294,7 +294,7 @@
           </div>
         </article>
         <article class="card" data-cat="Hot Coffee" data-name="Hot Chocolate" data-desc="Creamy cocoa. Comfort in a cup." data-img="image2.png" data-prices='[{"label":"12oz","value":"2.000"}]'>
-          <div class="media"><img src="image2.png" alt="Hot Chocolate" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Hot Chocolate" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Hot Chocolate</h4></div>
             <p class="desc">Creamy cocoa. Comfort in a cup.</p>
@@ -313,7 +313,7 @@
       </div>
       <div class="grid">
         <article class="card" data-cat="Iced Coffee" data-name="Iced Latte" data-desc="Chilled milk + espresso — clean and soft." data-img="image.png" data-prices='[{"label":"12oz","value":"2.000"},{"label":"16oz","value":"2.300"}]'>
-          <div class="media"><img src="image.png" alt="Iced Latte" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Iced Latte" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Iced Latte</h4></div>
             <p class="desc">Chilled milk + espresso — clean and soft.</p>
@@ -326,7 +326,7 @@
           </div>
         </article>
         <article class="card" data-cat="Iced Coffee" data-name="Iced Americano" data-desc="Sharp espresso, light and crisp over ice." data-img="image1.png" data-prices='[{"label":"12oz","value":"1.700"},{"label":"16oz","value":"2.000"}]'>
-          <div class="media"><img src="image1.png" alt="Iced Americano" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Iced Americano" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Iced Americano</h4></div>
             <p class="desc">Sharp espresso, light and crisp over ice.</p>
@@ -339,7 +339,7 @@
           </div>
         </article>
         <article class="card" data-cat="Iced Coffee" data-name="Iced Mocha" data-desc="Cocoa + espresso. Smooth sweetness." data-img="image2.png" data-prices='[{"label":"12oz","value":"2.300"},{"label":"16oz","value":"2.600"}]'>
-          <div class="media"><img src="image2.png" alt="Iced Mocha" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Iced Mocha" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Iced Mocha</h4></div>
             <p class="desc">Cocoa + espresso. Smooth sweetness.</p>
@@ -352,7 +352,7 @@
           </div>
         </article>
         <article class="card" data-cat="Iced Coffee" data-name="Cold Brew" data-desc="Slow-brewed for low acidity and extra smoothness." data-img="image.png" data-prices='[{"label":"12oz","value":"2.200"},{"label":"16oz","value":"2.600"}]'>
-          <div class="media"><img src="image.png" alt="Cold Brew" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Cold Brew" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Cold Brew</h4></div>
             <p class="desc">Slow-brewed for low acidity and extra smoothness.</p>
@@ -365,7 +365,7 @@
           </div>
         </article>
         <article class="card" data-cat="Iced Coffee" data-name="Iced Matcha Latte" data-desc="Matcha, milk, and a calm earthy finish." data-img="image1.png" data-prices='[{"label":"12oz","value":"2.400"},{"label":"16oz","value":"2.800"}]'>
-          <div class="media"><img src="image1.png" alt="Iced Matcha Latte" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Iced Matcha Latte" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Iced Matcha Latte</h4></div>
             <p class="desc">Matcha, milk, and a calm earthy finish.</p>
@@ -378,7 +378,7 @@
           </div>
         </article>
         <article class="card" data-cat="Iced Coffee" data-name="Affogato (Mini)" data-desc="Espresso shot over vanilla gelato." data-img="image2.png" data-prices='[{"label":"Single","value":"2.200"}]'>
-          <div class="media"><img src="image2.png" alt="Affogato (Mini)" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Affogato (Mini)" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Affogato (Mini)</h4></div>
             <p class="desc">Espresso shot over vanilla gelato.</p>
@@ -397,7 +397,7 @@
       </div>
       <div class="grid">
         <article class="card" data-cat="Non-Coffee" data-name="Strawberry Milk" data-desc="Creamy strawberry — nostalgic and soft." data-img="image.png" data-prices='[{"label":"12oz","value":"1.900"},{"label":"16oz","value":"2.200"}]'>
-          <div class="media"><img src="image.png" alt="Strawberry Milk" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Strawberry Milk" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Strawberry Milk</h4></div>
             <p class="desc">Creamy strawberry — nostalgic and soft.</p>
@@ -410,7 +410,7 @@
           </div>
         </article>
         <article class="card" data-cat="Non-Coffee" data-name="Iced Chocolate" data-desc="Cold cocoa, creamy texture, not too sweet." data-img="image1.png" data-prices='[{"label":"12oz","value":"2.100"},{"label":"16oz","value":"2.400"}]'>
-          <div class="media"><img src="image1.png" alt="Iced Chocolate" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Iced Chocolate" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Iced Chocolate</h4></div>
             <p class="desc">Cold cocoa, creamy texture, not too sweet.</p>
@@ -423,7 +423,7 @@
           </div>
         </article>
         <article class="card" data-cat="Non-Coffee" data-name="Vanilla Shake" data-desc="Thick, smooth, and classic." data-img="image2.png" data-prices='[{"label":"16oz","value":"2.700"}]'>
-          <div class="media"><img src="image2.png" alt="Vanilla Shake" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Vanilla Shake" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Vanilla Shake</h4></div>
             <p class="desc">Thick, smooth, and classic.</p>
@@ -431,7 +431,7 @@
           </div>
         </article>
         <article class="card" data-cat="Non-Coffee" data-name="Caramel Shake" data-desc="Caramel warmth, soft finish." data-img="image.png" data-prices='[{"label":"16oz","value":"2.900"}]'>
-          <div class="media"><img src="image.png" alt="Caramel Shake" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image.png') }}" alt="Caramel Shake" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Caramel Shake</h4></div>
             <p class="desc">Caramel warmth, soft finish.</p>
@@ -439,7 +439,7 @@
           </div>
         </article>
         <article class="card" data-cat="Non-Coffee" data-name="Peach Iced Tea" data-desc="Light peach notes, refreshing and clean." data-img="image1.png" data-prices='[{"label":"16oz","value":"1.900"}]'>
-          <div class="media"><img src="image1.png" alt="Peach Iced Tea" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image1.png') }}" alt="Peach Iced Tea" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Peach Iced Tea</h4></div>
             <p class="desc">Light peach notes, refreshing and clean.</p>
@@ -447,7 +447,7 @@
           </div>
         </article>
         <article class="card" data-cat="Non-Coffee" data-name="Sparkling Lemon" data-desc="Citrus sparkle — crisp &amp; bright." data-img="image2.png" data-prices='[{"label":"16oz","value":"1.800"}]'>
-          <div class="media"><img src="image2.png" alt="Sparkling Lemon" loading="lazy" /></div>
+          <div class="media"><img src="{{ asset('assets/imgs/image2.png') }}" alt="Sparkling Lemon" loading="lazy" /></div>
           <div class="content">
             <div class="topline"><h4 class="name">Sparkling Lemon</h4></div>
             <p class="desc">Citrus sparkle — crisp &amp; bright.</p>
